@@ -43,9 +43,18 @@ To install the project, follow these steps:
 To use the project, you can search for movies by title, year, genre, or actor. The search results will be displayed in the terminal.
 
 ### Usage Example
+#### Search for Movies
 
 ```curl
 curl http://127.0.0.1:8000/search?type=short&year=1999
 ```
 
 This command will search for movies with a title type "short" and a release year of 1999.
+
+#### Search for People
+
+```curl
+curl http://127.0.0.1:8000/people?profession=producer
+```
+
+This command will search for people with a profession of "producer".

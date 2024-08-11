@@ -46,3 +46,38 @@ def search_movies(
         }
         for title in results
     ]
+
+
+def search_people(
+    db: Session,
+    name: str = None,
+    profession: str = None,
+    movie: str = None,
+):
+    query = db.query(models.Person)
+
+    if name:
+        query = query.filter(models.Person.primary_name.ilike(f"%{name}%"))
+
+    if profession:
+        query = query.filter(models.Person.primary_profession.ilike(f"%{profession}%"))
+
+    if movie:
+        query = query.join(models.Person.titles).filter(
+            models.Title.primary_title.ilike(f"%{movie}%")
+        )
+
+    results = query.all()
+
+    return [
+        {
+            "Primary Name": person.primary_name,
+            "Birth Year": person.birth_year,
+            "Death Year": person.death_year,
+            "Profession": person.primary_profession,
+            "Titles": [
+                title.primary_title for title in person.titles
+            ],
+        }
+        for person in results
+    ]

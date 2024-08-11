@@ -26,3 +26,13 @@ def search_movies(
     db: Session = Depends(get_db),
 ):
     return api.search_movies(db, title, year, genre, person, title_type)
+
+
+@app.get("/people")
+def search_people(
+    name: str = None,
+    profession: str = None,
+    movie: str = None,
+    db: Session = Depends(get_db),
+):
+    return api.search_people(db, name, profession, movie)
